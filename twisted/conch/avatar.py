@@ -6,6 +6,7 @@ from twisted.conch.error import ConchError
 from twisted.conch.interfaces import IConchUser
 from twisted.conch.ssh.connection import OPEN_UNKNOWN_CHANNEL_TYPE
 from twisted.python import log
+from twisted.python.compat import nativeString
 
 
 @implementer(IConchUser)
@@ -32,7 +33,7 @@ class ConchUser:
 
     def gotGlobalRequest(self, requestType, data):
         # XXX should this use method dispatch?
-        requestType = requestType.replace('-', '_')
+        requestType = nativeString(requestType.replace(b'-', b'_'))
         f = getattr(self, "global_%s" % requestType, None)
         if not f:
             return 0
