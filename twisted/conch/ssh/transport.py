@@ -1704,7 +1704,7 @@ class SSHClientTransport(SSHTransportBase):
         if packet == b'':
             log.msg('got SERVICE_ACCEPT without payload')
         else:
-            name = nativeString(getNS(packet)[0])
+            name = getNS(packet)[0]
             if name != self.instance.name:
                 self.sendDisconnect(
                     DISCONNECT_PROTOCOL_ERROR,
@@ -1719,7 +1719,7 @@ class SSHClientTransport(SSHTransportBase):
         @type instance: subclass of L{twisted.conch.ssh.service.SSHService}
         @param instance: The service to run.
         """
-        self.sendPacket(MSG_SERVICE_REQUEST, NS(networkString(instance.name)))
+        self.sendPacket(MSG_SERVICE_REQUEST, NS(instance.name))
         self.instance = instance
 
     # Client methods
