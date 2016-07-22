@@ -28,7 +28,7 @@ from twisted.conch.ssh import common, channel, connection
 
 class SSHSession(channel.SSHChannel):
 
-    name = 'session'
+    name = b'session'
     def __init__(self, *args, **kw):
         channel.SSHChannel.__init__(self, *args, **kw)
         self.buf = b''
@@ -37,7 +37,6 @@ class SSHSession(channel.SSHChannel):
 
     def request_subsystem(self, data):
         subsystem, ignored= common.getNS(data)
-        subsystem = nativeString(subsystem)
         log.msg('asking for subsystem "%s"' % subsystem)
         client = self.avatar.lookupSubsystem(subsystem, data)
         if client:

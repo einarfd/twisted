@@ -36,7 +36,7 @@ class SubsystemOnlyAvatar(object):
         returning a MockProtocol to implement it.  Otherwise, return
         None which is interpreted by SSHSession as a failure.
         """
-        if name == 'subsystem':
+        if name == b'subsystem':
             return MockProtocol()
 
 
@@ -54,7 +54,7 @@ class StubAvatar:
         MockProtocol.  If they request neither, then None is returned which is
         interpreted by SSHSession as a failure.
         """
-        if name == 'TestSubsystem':
+        if name == b'TestSubsystem':
             self.subsystem = MockProtocol()
             self.subsystem.packetData = data
             return self.subsystem
